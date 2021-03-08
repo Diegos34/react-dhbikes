@@ -1,64 +1,48 @@
 import './App.css';
+import SideBars from "./components/sideBars";
+import Dhbikes from "./components/dhbikes";
+import Categories from "./components/categories";
+import TotalPrices from "./components/totalPrices";
+import {useEffect, useState} from "react";
 
 function App() {
-  return (
+	const [products, setProducts] = useState([]);
+		
+	useEffect(()=>{
+		fetch("http://localhost:3030/api/products")
+			.then(res => res.json())
+			.then(data => {
+				setProducts(data.data.products);
+				console.log(data.data.products)
+			})
+			
+	}, []);
+
+	const [users, setUsers] = useState([]);
+		
+	useEffect(()=>{
+		fetch("http://localhost:3030/api/users")
+			.then(res => res.json())
+			.then(data => {
+				setUsers(data.data.users);
+				
+			})
+			
+	}, []);
+
+	
+	
+
+	return (
       <div id="wrapper">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" rel="stylesheet"></link>
 	      <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"></link>
 		
-		  <ul className="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
-
-			
-        <a className="sidebar-brand d-flex align-items-center justify-content-center" href="/">
-          <div className="sidebar-brand-icon">
-            <i className="fas fa-chart-line"></i>
-          </div>
-          <div className="sidebar-brand-text mx-3">Admin</div>
-        </a>
-
-    
-        <hr className="sidebar-divider my-0"></hr>
-
-        <li className="nav-item active">
-          <a className="nav-link" href="/">
-            <i className="fas fa-fw fa-tachometer-alt"></i>
-            <span>Dashboard</span></a>
-        </li>
-
-        
-        <hr className="sidebar-divider"></hr>
-
-        
-        <div className="sidebar-heading">Actions</div>
-
-        
-        <li className="nav-item">
-          <a className="nav-link collapsed" href="/">
-            <i className="fas fa-fw fa-folder"></i>
-            <span>Pages</span>
-          </a>
-        </li>
-
-        
-        <li className="nav-item">
-          <a className="nav-link" href="/">
-            <i className="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span></a>
-        </li>
-
-        
-        <li className="nav-item">
-          <a className="nav-link" href="/">
-            <i className="fas fa-fw fa-table"></i>
-            <span>Tables</span></a>
-        </li>
-
-        
-        <hr className="sidebar-divider d-none d-md-block"></hr>
-		  </ul>
+		  <SideBars />
+	
 		
-
-		
+		 
+		 
 		<div id="content-wrapper" className="d-flex flex-column">
 
 		
@@ -114,6 +98,9 @@ function App() {
 					<div className="d-sm-flex align-items-center justify-content-between mb-4">
 						<h1 className="h3 mb-0 text-gray-800">App Dashboard</h1>
 					</div>
+					
+					
+      
 
 		
 					<div className="row">
@@ -125,7 +112,13 @@ function App() {
 									<div className="row no-gutters align-items-center">
 										<div className="col mr-2">
 											<div className="text-xs font-weight-bold text-primary text-uppercase mb-1"> Products in Data Base</div>
-											<div className="h5 mb-0 font-weight-bold text-gray-800">135</div>
+											<div className="h5 mb-0 font-weight-bold text-gray-800"> 
+												{
+													
+													products.length
+													
+												}
+        									</div>
 										</div>
 										<div className="col-auto">
 											<i className="fas fa-clipboard-list fa-2x text-gray-300"></i>
@@ -136,21 +129,7 @@ function App() {
 						</div>
 
 		
-						<div className="col-md-4 mb-4">
-							<div className="card border-left-success shadow h-100 py-2">
-								<div className="card-body">
-									<div className="row no-gutters align-items-center">
-										<div className="col mr-2">
-											<div className="text-xs font-weight-bold text-success text-uppercase mb-1"> Amount in products</div>
-											<div className="h5 mb-0 font-weight-bold text-gray-800">$546.456</div>
-										</div>
-										<div className="col-auto">
-											<i className="fas fa-dollar-sign fa-2x text-gray-300"></i>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+						<TotalPrices/>
 
 		
 						<div className="col-md-4 mb-4">
@@ -160,7 +139,7 @@ function App() {
 										<div className="col mr-2">
 											<div className="text-xs font-weight-bold text-warning text-uppercase mb-1">Users quantity
 											</div>
-											<div className="h5 mb-0 font-weight-bold text-gray-800">38</div>
+											<div className="h5 mb-0 font-weight-bold text-gray-800"></div>{users.length}
 										</div>
 										<div className="col-auto">
 											<i className="fas fa-user-check fa-2x text-gray-300"></i>
@@ -170,79 +149,11 @@ function App() {
 							</div>
 						</div>
 					</div>
-
-		
 					<div className="row">
-		
-						<div className="col-lg-6 mb-4">
-							<div className="card shadow mb-4">
-								<div className="card-header py-3">
-									<h6 className="m-0 font-weight-bold text-primary">Last product in Data Dase</h6>
-								</div>
-								<div className="card-body">
-									<div className="text-center">
-										<img className="img-fluid px-3 px-sm-4 mt-3 mb-4" src="product_dummy.svg" alt="image dummy"></img>
-									</div>
-									<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolores, consequatur explicabo officia inventore libero veritatis iure voluptate reiciendis a magnam, vitae, aperiam voluptatum non corporis quae dolorem culpa exercitationem ratione?</p>
-									<a target="_blank" rel="nofollow" href="/">View product detail</a>
-								</div>
-							</div>
-						</div>
-
-		
-						<div className="col-lg-6 mb-4">						
-							<div className="card shadow mb-4">
-								<div className="card-header py-3">
-									<h6 className="m-0 font-weight-bold text-primary">Categories in Data Base</h6>
-								</div>
-								<div className="card-body">
-									<div className="row">
-										<div className="col-lg-6 mb-4">
-											<div className="card bg-info text-white shadow">
-												<div className="card-body">
-													Category 01
-												</div>
-											</div>
-										</div>
-										<div className="col-lg-6 mb-4">
-											<div className="card bg-info text-white shadow">
-												<div className="card-body">
-													Category 02
-												</div>
-											</div>
-										</div>
-										<div className="col-lg-6 mb-4">
-											<div className="card bg-info text-white shadow">
-												<div className="card-body">
-													Category 03
-												</div>
-											</div>
-										</div>
-										<div className="col-lg-6 mb-4">
-											<div className="card bg-info text-white shadow">
-												<div className="card-body">
-													Category 04
-												</div>
-											</div>
-										</div>
-										<div className="col-lg-6 mb-4">
-											<div className="card bg-info text-white shadow">
-												<div className="card-body">
-													Category 05
-												</div>
-											</div>
-										</div>
-										<div className="col-lg-6 mb-4">
-											<div className="card bg-info text-white shadow">
-												<div className="card-body">
-													Category 06
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+					<Dhbikes/>
+					
+					<Categories/>
+						
 					</div>
 				</div>
 		
