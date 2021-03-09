@@ -3,7 +3,9 @@ import SideBars from "./components/sideBars";
 import Dhbikes from "./components/dhbikes";
 import Categories from "./components/categories";
 import TotalPrices from "./components/totalPrices";
+import ListProducts from "./components/listProducts";
 import {useEffect, useState} from "react";
+import listProducts from './components/listProducts';
 
 function App() {
 	const [products, setProducts] = useState([]);
@@ -81,8 +83,8 @@ function App() {
 		
 						<li className="nav-item dropdown no-arrow">
 							<a className="nav-link dropdown-toggle" href="/" id="userDropdown">
-								<span className="mr-2 d-none d-lg-inline text-gray-600 small">Walter White</span>
-								<img className="img-profile rounded-circle" src="dummy-avatar.jpg" width="60"></img>
+								<span className="mr-2 d-none d-lg-inline text-gray-600 small">DH BIKES</span>
+								<img className="img-profile rounded-circle" src="logo.png" width="60"></img>
 							</a>
 						</li>
 
@@ -159,12 +161,12 @@ function App() {
 		
 			</div>
 	
-
+			<ListProducts/>
 	
 			<footer className="sticky-footer bg-white">
 				<div className="container my-auto">
 					<div className="copyright text-center my-auto">
-						<span>Copyright &copy; Dashboard 2020</span>
+						<span>Copyright &copy; Dashboard 2021</span>
 					</div>
 				</div>
 			</footer>
